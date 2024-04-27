@@ -3,12 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 class OrderConfirmationController extends Controller
 {
 
     public function successfulPayment() {
+        $update = Order::latest()->first();
+        $update->is_paid = true;
+        $update->save();
         return view('successfulPayment');
+    }
+
+    public function addOrder(Request $request) {
+        $order = $request->input('finalOrderDetails');
+        $price = $request->input('finalOrderTotal');
+        $name = $request->input('customerName');
+
+        Order::create([
+            'total' => $price,
+            'order' => $order,
+            'customer_name' => $name,
+            'is_paid' => false,
+            'is_complete'=>false
+        ]);
+
+        return response()->json(['success'=>true]);
+
     }
     public function runStripe(Request $request){
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
@@ -20,7 +41,7 @@ class OrderConfirmationController extends Controller
         $unitAmountCents = (int) round($cost * 100);
 
         try {
-            // $this->addOrder($request);
+            $this->addOrder($request);
             $session = \Stripe\Checkout\Session::create([
                 'line_items' => [
                     [

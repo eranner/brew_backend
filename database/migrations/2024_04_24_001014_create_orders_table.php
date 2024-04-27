@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order');
+            $table->boolean('is_paid');
+            $table->boolean('is_complete');
             $table->float('total');
             $table->string('customer_name');
             $table->timestamps();
