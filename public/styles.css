@@ -38,3 +38,29 @@ h2 {
     align-items: flex-end;
     width: 100%;
 }
+
+.table-holder {
+    background-color:  rgba(249, 249, 249, 0.868);
+    padding:10px;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top:20px;
+    
+}
+.custom-order-backdrop {
+    /* background-image: url('./photos/time.jpg'); */
+    background-image: linear-gradient( rgb(252, 192, 255), rgba(207, 110, 255, 0.868));
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+.customer-order-holder {
+
+    display:flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 10px;
+}
+
