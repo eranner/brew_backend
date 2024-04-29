@@ -20,3 +20,5 @@ Route::post('/stripePayment', [OrderConfirmationController::class, 'runStripe'])
 Route::get('/successfulPayment', [OrderConfirmationController::class, 'successfulPayment'])->name('successfulPayment');
 
 Route::get('/orderHub', [OrderScreenController::class, 'index'])->name('orderHub');
+
+Route::get('/orderFiller', [OrderController::class, 'getUnfilledOrders'])->name('orderFiller');

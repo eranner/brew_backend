@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('is_complete');
             $table->float('total');
             $table->string('customer_name');
+            $table->boolean('is_picked_up');
             $table->timestamps();
         });
     }
