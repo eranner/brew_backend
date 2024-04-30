@@ -15,14 +15,22 @@ class OrderController extends Controller
     public function getUnfilledOrders(){
         $orders = Order::where(['is_paid' => true, 'is_complete' => false])->orderBy('created_at', 'asc')->get();
         $completed = Order::where(['is_paid' => true, 'is_complete' =>true])->orderBy('updated_at', 'asc')->get();
-        return view('orderFiller', ['orders' =>$orders, 'completed_orders'=>$completed]);
+        $filled = Order::where(['is_paid' => true, 'is_complete' => true, 'is_picked_up' => false])->get();
+        return view('orderFiller', ['orders' =>$orders, 'completed_orders'=>$completed, 'filled'=>$filled]);
     }
 
-    public function itemMade(Request $request) {
-        return view('orderFiller');
+    public function itemMade($id) {
+
+        $item = Order::findOrFail($id);
+        $item->is_complete = true;
+        $item->save();
+        return redirect()->route('orderFiller');
     }
 
-    public function itemPickedUp(Request $request){
-        return view('orderFiller');
+    public function orderPickedUp($id){
+        $item = Order::findOrFail($id);
+        $item->is_picked_up = true;
+        $item->save();
+        return redirect()->route('orderFiller');
     }
 }

@@ -12,12 +12,17 @@
         <th >Customer</th>
         <th >Order</th>
         <th >Order Placed</th>
+        <th >Mark Ready</th>
     </tr>
 @foreach($orders as $order)
     <tr>
         <td>{{$order['customer_name']}}</td>
         <td>{{substr($order['order'], 0, -19)}}</td>
         <td>{{$order['created_at']}}</td>
+        <td><form action="{{route('fillOrder', ['id'=>$order['id']])}}" method="post">
+            @method('PUT') <!-- Spoof the method to PUT -->
+            @csrf
+            <button class="btn btn-success">Complete</button></form></td>
     </tr>
 @endforeach
 </table>
@@ -30,12 +35,19 @@
         <th >Customer</th>
         <th >Order</th>
         <th >Time Completed</th>
+        <th >Picked Up</th>
     </tr>
-@foreach($completed_orders as $complete)
+
+@foreach($filled as $complete)
+
     <tr>
         <td>{{$complete['customer_name']}}</td>
         <td>{{substr($complete['order'], 0, -19)}}</td>
         <td>{{$complete['updated_at']}}</td>
+        <td><form action="{{route('orderPickedUp', ['id'=>$complete['id']])}}" method="post">
+            @method('PUT') <!-- Spoof the method to PUT -->
+            @csrf
+            <button class="btn btn-danger">Picked Up</button></form></td>
     </tr>
 @endforeach
 </table>

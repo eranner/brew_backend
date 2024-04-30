@@ -22,3 +22,6 @@ Route::get('/successfulPayment', [OrderConfirmationController::class, 'successfu
 Route::get('/orderHub', [OrderScreenController::class, 'index'])->name('orderHub');
 
 Route::get('/orderFiller', [OrderController::class, 'getUnfilledOrders'])->name('orderFiller');
+
+Route::put('orderFiller/fillOrder/{id}', [OrderController::class ,'itemMade'])->name('fillOrder');
+Route::put('orderFiller/pickUpOrder/{id}', [OrderController::class ,'orderPickedUp'])->name('orderPickedUp');

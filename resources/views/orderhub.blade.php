@@ -1,6 +1,6 @@
-@include('partials.header')
+@include('partials.refreshHeader')
 <h1 style="text-align:center; font-size: 4rem; color:black; text-shadow: 2px 2px #333; background-color:rgba(241, 10, 175, 0.868);margin:0;">Order Hub</h1>
-<p style="text-align:center; font-size: 1.2rem; color:black; background-color:rgba(241, 10, 175, 0.868);margin:0;">Please pick up your order from the counter when you see it move into the "completed orders" column.</p>
+<p style="text-align:center; font-size: 1.2rem; color:black; background-color:rgba(241, 10, 175, 0.868);margin:0;">Please pick up your order from the counter when you see it move into the <span style="font-weigh: bold; color: rgb(15, 198, 79); text-shadow: 1px 1px 2px #333;">"Completed Orders"</span> table.</p>
 <div class="custom-order-backdrop">
 <div class="customer-order-holder">
 
