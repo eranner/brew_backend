@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('game');
-            $table->integer('minutes');
+            $table->integer('minutes')->nullable();
             $table->boolean('is_working');
             $table->float('price');
             $table->timestamps();
