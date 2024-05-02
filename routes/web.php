@@ -31,3 +31,14 @@ Route::post('addItem/game', [InventoryController::class, 'addGame'])->name('addG
 Route::post('addItem/coffee', [InventoryController::class, 'addCoffee'])->name('addCoffee');
 Route::post('addItem/snack', [InventoryController::class, 'addSnack'])->name('addSnack');
 Route::get('/inventory', [InventoryController::class, 'index'])->name('dashboard');
+
+Route::put('/update/coffee/{id}', [InventoryController::class, 'updateCoffee'])->name('outOfCoffee');
+Route::put('/restock/coffee/{id}', [InventoryController::class, 'restockCoffee'])->name('restockCoffee');
+
+
+Route::put('/update/snacks/{id}', [InventoryController::class, 'updateSnack'])->name('outOfSnacks');
+Route::put('/restock/snacks/{id}', [InventoryController::class, 'restockSnack'])->name('restockSnack');
+
+
+Route::put('/update/games/{id}', [InventoryController::class, 'updateGame'])->name('outOfOrder');
+Route::put('/restock/games/{id}', [InventoryController::class, 'restockGame'])->name('fixedGame');

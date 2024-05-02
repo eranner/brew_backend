@@ -10,7 +10,13 @@ use App\Models\Snack;
 class InventoryController extends Controller
 {
     public function index(){
-        return view('dashboard');
+        $inStockCoffee = Coffee::where('in_stock', true)->get();
+        $outOfStockCoffee = Coffee::where('in_stock', false)->get();
+        $inStockSnacks = Snack::where('in_stock', true)->get();
+        $outOfStockSnacks = Snack::where('in_stock', false)->get();
+        $workingGames = Game::where('is_working', true)->get();
+        $brokenGames = Game::where('is_working', false)->get();
+        return view('dashboard', ['inStockCoffee' => $inStockCoffee, 'outOfStockCoffee' =>$outOfStockCoffee, 'inStockSnacks' => $inStockSnacks, 'outOfStockSnacks'=> $outOfStockSnacks, 'workingGames' => $workingGames, 'brokenGames'=> $brokenGames]);
     }
     public function addGame(Request $request){
         $request->validate(['gameName', 'duration', 'price']);
@@ -29,7 +35,6 @@ class InventoryController extends Controller
     public function addCoffee(Request $request){
         $request->validate(['coffee', 'size', 'in_stock', 'price']);
         $inStock = $request->has('in_stock') ? true : false;
-
         Coffee::create([
             'coffee' => $request->input('coffee'),
             'size' => $request->input('size'),
@@ -52,6 +57,70 @@ class InventoryController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Coffee added successfully');
     }
+
+    public function updateCoffee(Request $request){
+        $id = $request->id;
+        $coffee = Coffee::find($id);
+    if ($coffee) {
+        $coffee->in_stock = false;
+        $coffee->save();
+        }
+
+        return redirect()->route('dashboard');
+}
+public function restockCoffee(Request $request){
+    $id = $request->id;
+    $coffee = Coffee::find($id);
+if ($coffee) {
+    $coffee->in_stock = true;
+    $coffee->save();
+    }
+
+    return redirect()->route('dashboard');
+}
+
+
+public function updateSnack(Request $request){
+    $id = $request->id;
+    $snack = Snack::find($id);
+if ($snack) {
+    $snack->in_stock = false;
+    $snack->save();
+    }
+
+    return redirect()->route('dashboard');
+}
+public function restockSnack(Request $request){
+$id = $request->id;
+$snack = Snack::find($id);
+if ($snack) {
+$snack->in_stock = true;
+$snack->save();
+}
+
+return redirect()->route('dashboard');
+}
+
+public function updateGame(Request $request){
+    $id = $request->id;
+    $game = Game::find($id);
+if ($game) {
+    $game->is_working = false;
+    $game->save();
+    }
+
+    return redirect()->route('dashboard');
+}
+public function restockGame(Request $request){
+$id = $request->id;
+$game = Game::find($id);
+if ($game) {
+$game->is_working = true;
+$game->save();
+}
+
+return redirect()->route('dashboard');
+}
 }
 
 
